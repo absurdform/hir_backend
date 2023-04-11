@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+
+{% block body_class %}
+bg-blue-100 
+{% endblock %}
+
+{% block content %}
+
+<section class="mt-4 max-w-screen-xl mx-auto p-4 p-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
+    {% for block in self.content_list %}
+        {% if block.block_type == 'content' %}
+
+            {% for card in block.value %}
+
+            {% image card.image width-420 as img %}
+
+                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <img class="rounded-t-lg" src="{{ img.url }}" alt="{{ img.alt }}" />
+                    </a>
+                    <div class="p-5">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ card.heading }}</h5>
+                        </a>
+                        <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ card.paragraph|richtext }}</div>
+                        {% if card.button_page %}
+                        <a href="{{ card.button_page.url }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-sky-700 rounded-lg hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800">
+                            See more
+                            <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        </a>
+                        {% elif card.button_url %}
+                        <a href="{{ card.button_url }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-sky-700 rounded-lg hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800">
+                            See more
+                            <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+
+        {% endif %}
+    {% endfor %}
+</section>
+
+
+{% endblock %}
