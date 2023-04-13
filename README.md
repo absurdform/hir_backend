@@ -62,6 +62,7 @@ watch for changes to html
 
 To deploy this project run
 
-```bash
-  docker-compose -f docker-compose.dev.yml build
+```docker
+  docker-compose -f docker-compose.dev.yml up --build
+
 ```

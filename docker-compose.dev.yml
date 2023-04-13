@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  postgresdb:
+  db:
       image: postgres:15-alpine
       restart: unless-stopped
       container_name: wagtail-db
@@ -21,14 +21,14 @@ services:
     container_name: wagtail
     volumes:
       - ./website/:/usr/src/app/:consistent
-      # - ./wait-for-it.sh:/usr/local/bin/wait-for-it.sh
+      - ./wait-for-it.sh:/usr/local/bin/wait-for-it.sh
     ports:
       - 8000:8000
     # command : wait-for-it.sh db:5432 -- python manage.py runserver 0.0.0.0:8000
     env_file:
       - ./.env
     depends_on:
-      - postgresdb
+      - db
     networks:
       - epr-hub-net
 
