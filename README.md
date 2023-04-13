@@ -30,7 +30,7 @@ Install python dependencies
   pip install requirements.txt 
 ```
 
-Install python dependencies
+Create migrations 
 
 ```bash
   python manage.py makemigrations
@@ -38,6 +38,23 @@ Install python dependencies
 ```
 
 
+Create superuser for database
+
+```bash
+  python manage.py createsuperuser
+```
+
+Update the "dev.py" file with the created username and password
+
+Run the application
+
+```bash
+  python manage.py runserver
+```
+
+#### Start TailwindCSS
+
+Open a different terminal to begin.
 
 Install npm dependencies (tailwindcss)
 
