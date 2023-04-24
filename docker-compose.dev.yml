@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
     container_name: wagtail
     volumes:
-      - ./website/:/usr/src/app/:consistent
+      - media:/app/media
       - ./wait-for-it.sh:/usr/local/bin/wait-for-it.sh
     ports:
       - 8000:8000
@@ -39,3 +39,4 @@ networks:
 
 volumes:
   postgres_data:
+  media:

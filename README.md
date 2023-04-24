@@ -83,3 +83,17 @@ To deploy this project run
   docker-compose -f docker-compose.dev.yml up --build
 
 ```
+
+Createsuperuser account
+
+```docker
+  docker-compose -f docker-compose.dev.yml exec wagtail python manage.py createsuperuser
+
+```
+
+List files in the container
+
+```docker
+  docker container exec -it wagtail ls /app
+
+```

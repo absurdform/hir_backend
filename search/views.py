@@ -3,6 +3,9 @@ from django.template.response import TemplateResponse
 
 from wagtail.models import Page
 from wagtail.search.models import Query
+from wagtail.search.query import Fuzzy
+
+from home.models import DetailsPage
 
 
 def search(request):
@@ -11,7 +14,9 @@ def search(request):
 
     # Search
     if search_query:
-        search_results = Page.objects.live().search(search_query)
+        search_results = Page.objects.live().search(search_query, operator="or")
+        if not search_results:
+            search_results = DetailsPage.objects.live().search(search_query, fields=["content_list"])
         query = Query.get(search_query)
 
         # Record hit

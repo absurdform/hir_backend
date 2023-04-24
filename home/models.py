@@ -3,6 +3,7 @@ from wagtail import blocks
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
+from wagtail.search import index
 
 # from wagtail.images.blocks import ImageChooserBlock
 from .blocks import CardBlock
@@ -26,13 +27,17 @@ class HomePage(Page):
         FieldPanel("platforms"),
     ]
 
+    search_fields = Page.search_fields + [
+        index.SearchField('banner_title')
+    ]
+
     class Meta:
 
         verbose_name = "Home Page"
         verbose_name_plural = "Home Pages"
 
 
-class DetailsPage(Page):
+class DetailsPage(Page, index.Indexed):
     '''Details page'''
 
     templates = 'home/details_page.html'
@@ -43,5 +48,17 @@ class DetailsPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("content_list"),
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField('content_list'),
+        # index.RelatedFields('content_list', [
+        #     index.RelatedFields("content", [
+        #         index.SearchField("heading"),
+        #         index.SearchField("paragraph"),
+        #         index.AutocompleteField("heading"),
+        #         index.AutocompleteField("paragraph")
+        #     ])
+        # ])
     ]
 
